@@ -21,14 +21,15 @@ namespace MusicStore.Models
         {
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var db = serviceScope.ServiceProvider.GetService<MusicStoreContext>();
+                var scopeServiceProvider = serviceScope.ServiceProvider;
+                var db = scopeServiceProvider.GetService<MusicStoreContext>();
 
                 if (await db.Database.EnsureCreatedAsync())
                 {
-                    await InsertTestData(serviceProvider);
+                    await InsertTestData(scopeServiceProvider);
                     if (createUsers)
                     {
-                        await CreateAdminUser(serviceProvider);
+                        await CreateAdminUser(scopeServiceProvider);
                     }
                 }
             }
