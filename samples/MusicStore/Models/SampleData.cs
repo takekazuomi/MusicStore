@@ -19,7 +19,7 @@ namespace MusicStore.Models
 
         public static async Task InitializeMusicStoreDatabaseAsync(IServiceProvider serviceProvider, bool createUsers = true)
         {
-            using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            using (var serviceScope = serviceProvider.CreateScope())
             {
                 var scopeServiceProvider = serviceScope.ServiceProvider;
                 var db = scopeServiceProvider.GetService<MusicStoreContext>();
